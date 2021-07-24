@@ -72,12 +72,16 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     }
 
     fun previousMonthAction(view: View) {
-        selectedDate = selectedDate.minusMonths(1)
-        setMonthView()
+        if (selectedDate.minusMonths(1).month.value!=12) {
+            selectedDate = selectedDate.minusMonths(1)
+            setMonthView()
+        }
     }
     fun nextMonthAction(view: View) {
-        selectedDate = selectedDate.plusMonths(1)
-        setMonthView()
+        if (selectedDate.plusMonths(1).month.value!=1) {
+            selectedDate = selectedDate.plusMonths(1)
+            setMonthView()
+        }
     }
 
     override fun onItemClick(position: Int, dayText: String?) {
