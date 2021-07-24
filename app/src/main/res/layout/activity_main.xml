@@ -102,20 +102,11 @@
             android:textColor="@color/gray"
             android:textAlignment="center"
             android:textSize="16sp"/>
-    </LinearLayout>
 
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="400dp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray"
-        android:text="TextView" />
-
-
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
