@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     }
 
     private fun setMonthView() {
-        monthYearText.setText(monthYearFromDate(selectedDate))
+        monthYearText.setText(monthFromDate(selectedDate))
+        monthYearText.setText(selectedDate.month.value.toString() +"月")
         var daysInMonth:ArrayList<String> = daysInMonthArray(selectedDate)
         var calendarAdapter:CalendarAdapter = CalendarAdapter(daysInMonth, this)
         var layoutManager = GridLayoutManager(applicationContext, 7)
@@ -61,8 +62,8 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
 
     }
 
-    private fun monthYearFromDate(date:LocalDate): String? {
-        var formatter = DateTimeFormatter.ofPattern("MMMM yyyy")
+    private fun monthFromDate(date:LocalDate): String? {
+        var formatter = DateTimeFormatter.ofPattern("MMMM")
         return date.format(formatter)
     }
 
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     override fun onItemClick(position: Int, dayText: String?) {
         if(dayText.equals(""))
         {
-            var message:String = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate)
+            var message:String = "Selected Date " + dayText + " " + monthFromDate(selectedDate)
             Toast.makeText(this,message,Toast.LENGTH_LONG)
         }
     }

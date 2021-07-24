@@ -8,6 +8,7 @@ import com.example.hachiojicalendar.R
 
 class CalendarViewHolder(itemView: View, onItemListener: OnItemListener) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    @JvmField
     val dayOfMonth: TextView
     private val onItemListener: OnItemListener
     override fun onClick(view: View) {
