@@ -10,6 +10,7 @@ class CalendarViewHolder(itemView: View, onItemListener: OnItemListener) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
     @JvmField
     val dayOfMonth: TextView
+    var garbage: IntArray = intArrayOf();
     private val onItemListener: OnItemListener
     override fun onClick(view: View) {
         onItemListener.onItemClick(adapterPosition, dayOfMonth.text as String)
