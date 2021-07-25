@@ -2,6 +2,7 @@ package com.example.hachiojicalendar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
@@ -19,6 +20,7 @@ class CalendarAdapter(
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         holder.dayOfMonth.text = dayOfMonth[position]
+        holder.imageView.setImageResource(R.drawable.bin)
     }
 
     override fun getItemCount(): Int {
