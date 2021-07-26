@@ -16,7 +16,7 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="Prev."
             android:textColor="@color/blue"
             android:background="@null"
@@ -27,20 +27,40 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Feb 2021"
+            android:text="12gatsu"
             android:textSize="20sp"
             android:textAlignment="center"
             android:textColor="@color/black"
             tools:ignore="Suspicious0dp" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1" />
+
+
+        <Button
+            android:id="@+id/setting_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="@android:drawable/ic_menu_manage"
+            android:scaleX="0.5"
+            android:scaleY="0.5" />
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="Next."
             android:textColor="@color/blue"
             android:background="@null"
             android:onClick="nextMonthAction"
             android:textSize="20sp"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
