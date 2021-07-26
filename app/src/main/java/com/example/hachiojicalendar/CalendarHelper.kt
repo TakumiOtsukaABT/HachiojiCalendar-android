@@ -1,5 +1,7 @@
 package com.example.hachiojicalendar
 
+import java.time.LocalDate
+
 class CalendarHelper {
     fun garbagetypeString(type: GarbageType): Int? {
         when (type) {
@@ -16,5 +18,10 @@ class CalendarHelper {
             GarbageType.newspaper->{return R.drawable.newspaper}
             GarbageType.magazine->{return R.drawable.magazine}
         }
+    }
+
+    fun getSeason(date:LocalDate): Int {
+        val month = date.month.value
+        return (month-1)/3
     }
 }
