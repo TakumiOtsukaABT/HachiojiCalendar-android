@@ -13,6 +13,9 @@ class CalendarAdapter(
     private val onItemListener: OnItemListener
 ) : RecyclerView.Adapter<CalendarViewHolder>() {
     lateinit var context: Context
+    var district:Int = 0
+    var season:Int = 0
+    var cycleIndex:Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.calendar_cell, parent, false)
@@ -24,21 +27,24 @@ class CalendarAdapter(
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         holder.dayOfMonth.text = dayOfMonth[position]
-        if (position%2 == 0) {
-            var secondImage:ImageView = ImageView(context)
-            var thirdImage:ImageView = ImageView(context)
-
-            secondImage.setImageResource(R.drawable.gomibukuro_yellow)
-            thirdImage.setImageResource(R.drawable.gomibukuro_blue)
-            val viewParamsCenter = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            secondImage.layoutParams = viewParamsCenter
-            viewParamsCenter.weight++
-            thirdImage.layoutParams = viewParamsCenter
-            holder.imageLayout.addView(secondImage)
-            holder.imageLayout.addView(thirdImage)
-        } else {
+        if (dayOfMonth[position] != "") {
+            for((index,i) in DistrictCycle().district[district][season][cycleIndex%2][position%7].withIndex()) {
+                val garbage = GarbageType.valueOf(i)
+                val name = CalendarHelper().garbagetypeString(garbage)
+                val imageV = ImageView(context)
+                if (name != null) {
+                    imageV.setImageResource(name)
+                    val viewParamsCenter = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    imageV.layoutParams = viewParamsCenter
+                    holder.imageLayout.addView(imageV)
+                    viewParamsCenter.weight++
+                }
+            }
+            if (position % 7 == 0) {
+                cycleIndex += 1
+            }
         }
     }
 
