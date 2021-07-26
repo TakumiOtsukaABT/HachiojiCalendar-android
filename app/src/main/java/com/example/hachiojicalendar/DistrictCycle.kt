@@ -1563,4 +1563,12 @@ enum class GarbageType(val id: Int) {
     yuugai(9),
     newspaper(10),
     magazine(11);
+
+    companion object {
+        fun valueOf(typeId:Int) :GarbageType {
+            val filtered = GarbageType.values().filter {it.id == typeId}.firstOrNull()
+            return filtered ?: throw IllegalArgumentException("no such enum object for the typeId: " + typeId)
+        }
+    }
+
 }

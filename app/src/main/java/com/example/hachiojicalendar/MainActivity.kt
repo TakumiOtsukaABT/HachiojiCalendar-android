@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
         monthYearText.setText(selectedDate.month.value.toString() +"月")
         var daysInMonth:ArrayList<String> = daysInMonthArray(selectedDate)
         var calendarAdapter:CalendarAdapter = CalendarAdapter(daysInMonth, this)
+        calendarAdapter.season = CalendarHelper().getSeason(selectedDate)
         var layoutManager = GridLayoutManager(applicationContext, 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
