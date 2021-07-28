@@ -1,5 +1,6 @@
 package com.example.hachiojicalendar
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -101,6 +102,11 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
 
     fun setDistrictIndex(index:Int) {
         districtIndex = index
+    }
+
+    fun openSettings(view:View) {
+        val intent = Intent(this,SettingsActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onItemClick(position: Int, dayText: String?, garbage: IntArray) {

@@ -47,7 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
+            android:onClick="openSettings"
             android:background="@android:drawable/ic_menu_manage"
             android:scaleX="0.5"
             android:scaleY="0.5" />
