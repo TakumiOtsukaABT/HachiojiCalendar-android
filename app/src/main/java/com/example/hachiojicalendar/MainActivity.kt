@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,14 +19,20 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     private lateinit var calendarRecyclerView:RecyclerView;
     private lateinit var selectedDate:LocalDate
     private lateinit var descriptionText:TextView
+    private lateinit var districtButton:Button
     private var districtIndex=0;
+    val districtList = arrayOf("地区1", "地区2","地区3","地区4","地区5","地区6","地区7","地区8","地区9",
+        "地区10","地区11","地区12","地区13","地区14","地区15","地区16","地区17","地区18","地区19")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val data = getPreferences(MODE_PRIVATE)
+        districtIndex = data.getInt("District", 0)
         setContentView(R.layout.activity_main)
         initWidget()
         selectedDate = LocalDate.now()
+        districtButton.text = districtList[districtIndex]
         setMonthView()
     }
 
@@ -79,6 +86,7 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView)
         monthYearText = findViewById(R.id.MonthYearTV)
         descriptionText = findViewById(R.id.description_textview)
+        districtButton = findViewById(R.id.district_button)
     }
 
     fun previousMonthAction(view: View) {
@@ -102,6 +110,10 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
 
     fun setDistrictIndex(index:Int) {
         districtIndex = index
+        val data = getPreferences(MODE_PRIVATE)
+        val editor = data.edit()
+        editor.putInt("District", districtIndex)
+        editor.apply()
     }
 
     fun openSettings(view:View) {
