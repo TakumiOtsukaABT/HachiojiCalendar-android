@@ -100,7 +100,6 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     fun setDistrict(view:View) {
         val districtDialog = DistrictDialog()
         districtDialog.districtButton = findViewById(R.id.district_button)
-        districtDialog.districtIndex = districtIndex
         districtDialog.show(supportFragmentManager, "district_tag")
     }
 
