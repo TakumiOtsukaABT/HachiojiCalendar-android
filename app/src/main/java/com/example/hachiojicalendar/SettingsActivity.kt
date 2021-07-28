@@ -2,12 +2,19 @@ package com.example.hachiojicalendar
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
+import android.widget.SimpleAdapter
 import androidx.appcompat.app.AppCompatActivity
 
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(){
+    private val subjects = arrayOf("通知日", "通知時間")
+    private var comments = arrayOf("","")
+
+    var date = 0
+    var time = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +25,49 @@ class SettingsActivity : AppCompatActivity() {
         actionBar!!.title = "通知設定"
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        val data = ArrayList<Any>()
-        data.add("通知日")
-        data.add("通知時間")
-        val adapter: ArrayAdapter<*> = ArrayAdapter(this, android.R.layout.simple_list_item_1, data)
-        val listView: ListView = findViewById<View>(R.id.listview) as ListView
-        listView.setAdapter(adapter)
+        // リスト項目のもととなる値を準備する
+        updateList(subjects, comments)
+    }
+
+    public fun updateList(
+        subjects: Array<String> = this.subjects,
+        comments: Array<String> = this.comments
+    ) {
+        val data: MutableList<Map<String, String?>> = ArrayList()
+        for (i in subjects.indices) {
+            val item: MutableMap<String, String?> = HashMap()
+            item["Subject"] = subjects[i]
+            item["Comment"] = comments[i]
+            data.add(item)
+        }
+        val adapter = SimpleAdapter(
+            this,
+            data,
+            android.R.layout.simple_list_item_2,
+            arrayOf("Subject", "Comment"),
+            intArrayOf(android.R.id.text1, android.R.id.text2)
+        )
+        val listView = findViewById<View>(R.id.listview) as ListView
+        listView.adapter = adapter
+        listView.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
+            when(position){
+                0->{
+                    val setDateDialog = SetDateDialog()
+                    setDateDialog.show(supportFragmentManager, "setDate_tag")
+                }
+                1->{
+                    val setTimeDialog = SetTimeDialog()
+                    setTimeDialog.show(supportFragmentManager, "setTime_tag")
+                }
+            }
+        })
+    }
+
+    fun setDateComment(text:String) {
+        comments[0] = text
+    }
+
+    fun setTimeComment(text:String) {
+        comments[1] = text
     }
 }
