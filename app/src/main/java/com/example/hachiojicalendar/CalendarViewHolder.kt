@@ -12,6 +12,7 @@ class CalendarViewHolder(itemView: View, onItemListener: OnItemListener) :
     val dayOfMonth: TextView
     var garbage: IntArray = intArrayOf();
     val imageLayout:LinearLayout
+    val cellLayout:LinearLayout
     private val onItemListener: OnItemListener
     override fun onClick(view: View) {
         onItemListener.onItemClick(adapterPosition, dayOfMonth.text as String, garbage)
@@ -21,6 +22,7 @@ class CalendarViewHolder(itemView: View, onItemListener: OnItemListener) :
         dayOfMonth = itemView.findViewById(R.id.cellDayText)
         this.onItemListener = onItemListener
         imageLayout = itemView.findViewById(R.id.imageLayout)
+        cellLayout = itemView.findViewById(R.id.celllayout)
         itemView.setOnClickListener(this)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.hachiojicalendar
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -106,8 +107,16 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
         descriptionText.text = ""
         if (garbage != null){
             for (i in garbage) {
-                descriptionText.text = descriptionText.text.toString() + i.toString() + "\n"
+                val garbageType = GarbageType.valueOf(i)
+                val garbageJapanese = CalendarHelper().getGarbageTypeJapanese(garbageType)
+                descriptionText.text = descriptionText.text.toString() + garbageJapanese + "\n"
             }
         }
+        for (i in 0..41) {
+            val cell = calendarRecyclerView.findViewHolderForAdapterPosition(i) as CalendarViewHolder
+            cell.cellLayout.setBackgroundColor(Color.WHITE)
+        }
+        val cell = calendarRecyclerView.findViewHolderForAdapterPosition(position) as CalendarViewHolder
+        cell.cellLayout.setBackgroundColor(Color.YELLOW)
     }
 }
