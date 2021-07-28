@@ -39,6 +39,7 @@ class CalendarAdapter(
                     )
                     imageV.layoutParams = viewParamsCenter
                     holder.imageLayout.addView(imageV)
+                    holder.garbage += i
                     viewParamsCenter.weight++
                 }
             }
@@ -53,6 +54,6 @@ class CalendarAdapter(
     }
 
     interface OnItemListener {
-        fun onItemClick(position: Int, dayText: String?)
+        fun onItemClick(position: Int, dayText: String?, garbage: IntArray)
     }
 }

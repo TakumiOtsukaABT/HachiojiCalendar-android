@@ -1,16 +1,12 @@
 package com.example.hachiojicalendar
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.internal.ContextUtils.getActivity
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -20,6 +16,7 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     private lateinit var monthYearText:TextView
     private lateinit var calendarRecyclerView:RecyclerView;
     private lateinit var selectedDate:LocalDate
+    private lateinit var descriptionText:TextView
     private var districtIndex=0;
 
 
@@ -40,8 +37,6 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
         var layoutManager = GridLayoutManager(applicationContext, 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
-
-
 
     }
 
@@ -82,6 +77,7 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     private fun initWidget() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView)
         monthYearText = findViewById(R.id.MonthYearTV)
+        descriptionText = findViewById(R.id.description_textview)
     }
 
     fun previousMonthAction(view: View) {
@@ -107,11 +103,20 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
         districtIndex = index
     }
 
-    override fun onItemClick(position: Int, dayText: String?) {
-        if(dayText.equals(""))
-        {
-            var message:String = "Selected Date " + dayText + " " + monthFromDate(selectedDate)
-            Toast.makeText(this,message,Toast.LENGTH_LONG)
+    override fun onItemClick(position: Int, dayText: String?, garbage: IntArray) {
+        descriptionText.text = ""
+        if (garbage != null){
+            for (i in garbage) {
+                val garbageType = GarbageType.valueOf(i)
+                val garbageJapanese = CalendarHelper().getGarbageTypeJapanese(garbageType)
+                descriptionText.text = descriptionText.text.toString() + garbageJapanese + "\n"
+            }
         }
+        for (i in 0..41) {
+            val cell = calendarRecyclerView.findViewHolderForAdapterPosition(i) as CalendarViewHolder
+            cell.cellLayout.setBackgroundColor(Color.WHITE)
+        }
+        val cell = calendarRecyclerView.findViewHolderForAdapterPosition(position) as CalendarViewHolder
+        cell.cellLayout.setBackgroundColor(Color.YELLOW)
     }
 }
