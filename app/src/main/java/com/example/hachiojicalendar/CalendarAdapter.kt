@@ -53,6 +53,6 @@ class CalendarAdapter(
     }
 
     interface OnItemListener {
-        fun onItemClick(position: Int, dayText: String?)
+        fun onItemClick(position: Int, dayText: String?, garbage: IntArray)
     }
 }
