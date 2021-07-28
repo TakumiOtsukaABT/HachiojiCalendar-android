@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.DialogFragment
 
@@ -26,9 +27,14 @@ class SetTimeDialog : DialogFragment() {
                     DialogInterface.OnClickListener { dialog, which ->
                         // The 'which' argument contains the index position
                         // of the selected item
-                        (activity as SettingsActivity).setTimeComment(list[which])
+                        (activity as SettingsActivity).setTimeComment(list[which],which)
                         (activity as SettingsActivity).updateList()
                         (activity as SettingsActivity).time = which
+//                        val data = (activity as SettingsActivity).getPreferences(AppCompatActivity.MODE_PRIVATE)
+//                        val editor = data.edit()
+//                        editor.putInt("Time", which)
+//                        editor.putString("Time", list[which])
+//                        editor.apply()
                     })
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

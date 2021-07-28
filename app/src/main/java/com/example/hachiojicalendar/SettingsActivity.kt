@@ -18,6 +18,13 @@ class SettingsActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val data = getPreferences(MODE_PRIVATE)
+        date = data.getInt("DateDigit", 0)
+        time = data.getInt("TimeDigit",0)
+        comments[0] = data.getString("Date","").toString()
+        comments[1] = data.getString("Time","").toString()
+
+
         setContentView(R.layout.settings_activity)
         var toolBar = findViewById(R.id.toolbar) as androidx.appcompat.widget.Toolbar
         setSupportActionBar(toolBar)
@@ -63,11 +70,21 @@ class SettingsActivity : AppCompatActivity(){
         })
     }
 
-    fun setDateComment(text:String) {
+    fun setDateComment(text:String,index:Int) {
         comments[0] = text
+        val data = getPreferences(MODE_PRIVATE)
+        val editor = data.edit()
+        editor.putString("Date", text)
+        editor.putInt("DateDigit",index)
+        editor.apply()
     }
 
-    fun setTimeComment(text:String) {
+    fun setTimeComment(text:String,index:Int) {
         comments[1] = text
+        val data = getPreferences(MODE_PRIVATE)
+        val editor = data.edit()
+        editor.putString("Time", text)
+        editor.putInt("TimeDigit", index)
+        editor.apply()
     }
 }
