@@ -1,16 +1,20 @@
 package com.example.hachiojicalendar
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.internal.ContextUtils.getActivity
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.util.stream.IntStream.range
+
 
 class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     private lateinit var monthYearText:TextView
@@ -40,6 +44,11 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
 
 
 
+    }
+
+    fun updateMonthView() {
+        setMonthView()
+        println("tttttaku")
     }
 
     private fun daysInMonthArray(date: LocalDate): ArrayList<String> {
@@ -87,6 +96,17 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
             selectedDate = selectedDate.plusMonths(1)
             setMonthView()
         }
+    }
+
+    fun setDistrict(view:View) {
+        val districtDialog = DistrictDialog()
+        districtDialog.districtButton = findViewById(R.id.district_button)
+        districtDialog.districtIndex = districtIndex
+        districtDialog.show(supportFragmentManager, "district_tag")
+    }
+
+    fun setDistrictIndex(index:Int) {
+        districtIndex = index
     }
 
     override fun onItemClick(position: Int, dayText: String?) {
