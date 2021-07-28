@@ -39,6 +39,7 @@ class CalendarAdapter(
                     )
                     imageV.layoutParams = viewParamsCenter
                     holder.imageLayout.addView(imageV)
+                    holder.garbage += i
                     viewParamsCenter.weight++
                 }
             }
