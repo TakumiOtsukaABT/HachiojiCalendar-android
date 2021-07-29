@@ -34,6 +34,12 @@ class SettingsActivity : AppCompatActivity(){
 
         // リスト項目のもととなる値を準備する
         updateList(subjects, comments)
+
+        for (i in CalendarHelper.sched) {
+            print("tttt")
+            print(i.garbage)
+            println(i.dateComponent)
+        }
     }
 
     public fun updateList(

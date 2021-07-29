@@ -10,7 +10,7 @@ class CalendarViewHolder(itemView: View, onItemListener: OnItemListener) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
     @JvmField
     val dayOfMonth: TextView
-    var garbage: IntArray = intArrayOf();
+    var garbage = mutableListOf<Int>()
     val imageLayout:LinearLayout
     val cellLayout:LinearLayout
     private val onItemListener: OnItemListener

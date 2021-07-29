@@ -1,11 +1,10 @@
 package com.example.hachiojicalendar
 
 import java.time.LocalDate
-import java.util.*
 
-class DateWithSchedule constructor(date: LocalDate,garbageArray:IntArray) {
+class DateWithSchedule(date: LocalDate, garbageArray: MutableList<Int>) {
     var dateComponent = LocalDate.now()
-    var garbage: IntArray = intArrayOf()
+    var garbage = mutableListOf<Int>()
     init {
         dateComponent = date
         garbage = garbageArray

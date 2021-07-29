@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -89,11 +88,10 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
         var array = ArrayList<DateWithSchedule>()
         for (i in 0..41) {
             val cell = calendarRecyclerView.findViewHolderForAdapterPosition(i) as CalendarViewHolder
-            if (cell.garbage[0] != 0) {
+            if (cell.garbage.isNotEmpty()) {
                 val dateNow = LocalDate.now()
-                val localDate = LocalDate.of(dateNow.year,selectedDate.month,cell.dayOfMonth.text as Int)
-
-
+                val intConvert = Integer.parseInt(cell.dayOfMonth.text.toString())
+                val localDate = LocalDate.of(dateNow.year,selectedDate.month,intConvert)
                 var dateWithSchedule = DateWithSchedule(localDate,cell.garbage)
                 array.add(dateWithSchedule)
             }
@@ -122,7 +120,6 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     }
 
     fun setDistrict(view:View) {
-        storeDateWithSchedule()
         val districtDialog = DistrictDialog()
         districtDialog.districtButton = findViewById(R.id.district_button)
         districtDialog.show(supportFragmentManager, "district_tag")
@@ -137,11 +134,12 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     }
 
     fun openSettings(view:View) {
+        storeDateWithSchedule()
         val intent = Intent(this,SettingsActivity::class.java)
         startActivity(intent)
     }
 
-    override fun onItemClick(position: Int, dayText: String?, garbage: IntArray) {
+    override fun onItemClick(position: Int, dayText: String?, garbage: MutableList<Int>) {
         descriptionText.text = ""
         if (garbage != null){
             for (i in garbage) {
