@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
@@ -82,6 +84,23 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
         return date.format(formatter)
     }
 
+    private fun storeDateWithSchedule() {
+        CalendarHelper.sched.clear()
+        var array = ArrayList<DateWithSchedule>()
+        for (i in 0..41) {
+            val cell = calendarRecyclerView.findViewHolderForAdapterPosition(i) as CalendarViewHolder
+            if (cell.garbage[0] != 0) {
+                val dateNow = LocalDate.now()
+                val localDate = LocalDate.of(dateNow.year,selectedDate.month,cell.dayOfMonth.text as Int)
+
+
+                var dateWithSchedule = DateWithSchedule(localDate,cell.garbage)
+                array.add(dateWithSchedule)
+            }
+        }
+        CalendarHelper.sched = array
+    }
+
     private fun initWidget() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView)
         monthYearText = findViewById(R.id.MonthYearTV)
@@ -103,6 +122,7 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     }
 
     fun setDistrict(view:View) {
+        storeDateWithSchedule()
         val districtDialog = DistrictDialog()
         districtDialog.districtButton = findViewById(R.id.district_button)
         districtDialog.show(supportFragmentManager, "district_tag")

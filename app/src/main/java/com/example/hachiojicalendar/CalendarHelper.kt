@@ -3,6 +3,12 @@ package com.example.hachiojicalendar
 import java.time.LocalDate
 
 class CalendarHelper {
+
+    companion object {
+        var sched = ArrayList<DateWithSchedule>()
+    }
+
+
     fun garbagetypeString(type: GarbageType): Int? {
         when (type) {
             GarbageType.non->{return null}

@@ -43,6 +43,7 @@ class CalendarAdapter(
                     viewParamsCenter.weight++
                 }
             }
+
             if (position % 7 == 0) {
                 cycleIndex += 1
             }
