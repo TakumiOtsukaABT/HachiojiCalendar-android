@@ -10,6 +10,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
@@ -17,6 +18,12 @@ import android.widget.SimpleAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.admanager.AdManagerAdRequest
+import com.google.android.gms.ads.admanager.AdManagerInterstitialAd
+import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
@@ -27,6 +34,9 @@ import kotlin.text.CharDirectionality.Companion.valueOf
 class SettingsActivity : AppCompatActivity() {
     private val subjects = arrayOf("通知日", "通知時間")
     private var comments = arrayOf("", "")
+
+    private var mAdManagerInterstitialAd: AdManagerInterstitialAd? = null
+    private final var TAG = "MainActivity"
 
     var date = 0
     var time = 0
@@ -39,6 +49,21 @@ class SettingsActivity : AppCompatActivity() {
         time = data.getInt("TimeDigit", 0)
         comments[0] = data.getString("Date", "").toString()
         comments[1] = data.getString("Time", "").toString()
+
+
+        var adRequest = AdManagerAdRequest.Builder().build()
+
+        AdManagerInterstitialAd.load(this,"/6499/example/interstitial", adRequest, object : AdManagerInterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d(TAG, adError?.message)
+                mAdManagerInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: AdManagerInterstitialAd) {
+                Log.d(TAG, "Ad was loaded.")
+                mAdManagerInterstitialAd = interstitialAd
+            }
+        })
 
 
         setContentView(R.layout.settings_activity)
@@ -105,6 +130,27 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     fun setNotification(view: View) {
+        mAdManagerInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                Log.d(TAG, "Ad was dismissed.")
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                Log.d(TAG, "Ad failed to show.")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                Log.d(TAG, "Ad showed fullscreen content.")
+                mAdManagerInterstitialAd = null;
+            }
+        }
+
+        if (mAdManagerInterstitialAd != null) {
+            mAdManagerInterstitialAd?.show(this)
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.")
+        }
+
         val i = Intent(
             applicationContext,
             ReceivedActivity::class.java
