@@ -9,6 +9,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
     val districtList = arrayOf("地区1", "地区2","地区3","地区4","地区5","地区6","地区7","地区8","地区9",
         "地区10","地区11","地区12","地区13","地区14","地区15","地区16","地区17","地区18","地区19")
 
+    lateinit var mAdView : AdView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +40,11 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
         selectedDate = LocalDate.now()
         districtButton.text = districtList[districtIndex]
         setMonthView()
+
+        MobileAds.initialize(this) {}
+
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
     }
 
     private fun setMonthView() {
@@ -104,6 +114,7 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
         monthYearText = findViewById(R.id.MonthYearTV)
         descriptionText = findViewById(R.id.description_textview)
         districtButton = findViewById(R.id.district_button)
+        mAdView = findViewById(R.id.adView)
     }
 
     fun previousMonthAction(view: View) {
