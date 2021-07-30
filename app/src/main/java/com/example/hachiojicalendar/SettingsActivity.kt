@@ -132,7 +132,7 @@ class SettingsActivity : AppCompatActivity() {
                     PendingIntent.getBroadcast(this, index, i, 0) // ブロードキャストを投げるPendingIntentの作成
 
                 val am = getSystemService(ALARM_SERVICE) as AlarmManager // AlramManager取得
-                
+
                 am[AlarmManager.RTC_WAKEUP, calendar.timeInMillis] =
                     sender // AlramManagerにPendingIntentを登録
             }
