@@ -29,6 +29,7 @@
                     android:backgroundTint="#00FFFFFF"
                     android:text="通知を設定する"
                     android:textColor="#FFFFFF"
+                    android:onClick="setNotification"
                     android:textSize="16dp" />
 
             </LinearLayout>
