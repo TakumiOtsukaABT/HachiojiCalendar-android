@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">HachiojiCalendar</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_onboarding">OnBoardingActivity</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

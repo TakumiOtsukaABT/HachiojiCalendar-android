@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HachiojiCalendar" >
-        <activity android:name=".OnBoardingActivity" >
+        <activity android:name=".OnBoardingActivity"
+            android:parentActivityName=".MainActivity"
+            >
         </activity>
 
         <meta-data
