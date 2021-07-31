@@ -33,7 +33,11 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
         val data = getPreferences(MODE_PRIVATE)
+
         districtIndex = data.getInt("District", 0)
         setContentView(R.layout.activity_main)
         initWidget()
@@ -45,6 +49,13 @@ class MainActivity : AppCompatActivity() , CalendarAdapter.OnItemListener {
 
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
+        if (data.getInt("FirstTime",0)==0) {
+            val editor = data.edit()
+            editor.putInt("FirstTime", 1)
+            editor.apply()
+            val intent = Intent(this,OnBoardingActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setMonthView() {
