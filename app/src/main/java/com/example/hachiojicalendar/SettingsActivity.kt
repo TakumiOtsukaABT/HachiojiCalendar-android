@@ -53,7 +53,7 @@ class SettingsActivity : AppCompatActivity() {
 
         var adRequest = AdManagerAdRequest.Builder().build()
 
-        AdManagerInterstitialAd.load(this,"/6499/example/interstitial", adRequest, object : AdManagerInterstitialAdLoadCallback() {
+        AdManagerInterstitialAd.load(this,"ca-app-pub-3039829668066613/7774662325", adRequest, object : AdManagerInterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d(TAG, adError?.message)
                 mAdManagerInterstitialAd = null

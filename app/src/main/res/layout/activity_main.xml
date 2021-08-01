@@ -151,7 +151,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom|center"
             app:adSize="BANNER"
-            app:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+            app:adUnitId="ca-app-pub-3039829668066613/4016763606"></com.google.android.gms.ads.AdView>
 
 
 
